@@ -17,7 +17,7 @@ con, cliente = serv_socket.accept()
 print('conectado') 
 print('aguardando mensagem') 
 recebe = con.recv(1024) 
-print('mensagem recebida: '+ recebe serv_socket.close())
+print('mensagem recebida: '+ recebe.serv_socket.close())
 
 
 # Declarações

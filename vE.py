@@ -24,13 +24,16 @@ sleep(1)
 executados = 1
 
 for i in ids:
-    print(executados, i['Cliente'], end = ' ')
     if i['Cliente'] != 'DAYCOVAL':
+        print(executados, i['Cliente'], end = ' ')
+        
         id = i['Id']
         execute()
-        print('executando')
+        print('executado.')
         executados += 1
         sleep(15)
+    else:
+        print(executados, i['Cliente'])
 
 print('Fim da Execução!')
 print(f'{executados} Ids foram executados.')
