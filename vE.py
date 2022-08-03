@@ -12,7 +12,7 @@ def execute():
     p.write('execute ')
     p.write(id)
     p.press('enter')
-execute 
+
 # Entrada do Json
 with open("listaId.json", encoding = "UTF-8") as jsn:
     ids = json.load(jsn)
@@ -26,7 +26,7 @@ executados = 1
 for i in ids:
     if i['Cliente'] != 'DAYCOVAL':
         print(executados, i['Cliente'], end = ' ')
-        
+
         id = i['Id']
         execute()
         print('executado.')
