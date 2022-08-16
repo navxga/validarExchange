@@ -7,14 +7,13 @@ import json
 p = pyautogui
 def openExchange():
     p.hotkey('win', 'r')
-    # p.write('cmd')
-    p.write('C:\\Users\\lnavega\\Projetos\\integra\\src\\Integra.ExchangeService\\bin\\Debug\\netcoreapp3.1\\Integra.ExchangeService.exe')
+    p.write('cmd')
+    #p.write('C:\\Users\\lnavega\\Projetos\\integra\\src\\Integra.ExchangeService\\bin\\Debug\\netcoreapp3.1\\Integra.ExchangeService.exe')
     p.press('enter')
 def execute():
     p.write('execute ')
     p.write(id)
     p.press('enter')
-
 
 
 
@@ -26,7 +25,6 @@ def execute():
 
 # print(requisicao)
 # print(requisicao.json())
-
 
 
 
@@ -44,7 +42,9 @@ total = 0
 
 for i in ids:
     total += 1
-    if i['Cliente'] != 'DAYCOVAL':
+
+    # Filtro para não executar os do Daycoval, ProjudiRJ e TJRJ
+    if i["Cliente"] != "DAYCOVAL" and i["Cliente"] != "PROJUDIRJ" and i["Cliente"] != "TJRJ":
         print(total, i['Cliente'], end = ' ')
         id = i['Id']
         execute()
