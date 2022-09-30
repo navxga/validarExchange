@@ -2,20 +2,23 @@ from time import sleep
 import pyautogui
 # import requests
 import json
+import datetime
 
 # Declarações
 p = pyautogui
+
+
 def openExchange():
     p.hotkey('win', 'r')
-    p.write('cmd')
-    #p.write('C:\\Users\\lnavega\\Projetos\\integra\\src\\Integra.ExchangeService\\bin\\Debug\\netcoreapp3.1\\Integra.ExchangeService.exe')
+    # p.write('cmd')
+    p.write('C:\\Users\\lnavega\\Projetos\\integra\\src\\Integra.ExchangeService\\bin\\Debug\\netcoreapp3.1\\Integra.ExchangeService.exe')
     p.press('enter')
+
+
 def execute():
     p.write('execute ')
     p.write(id)
     p.press('enter')
-
-
 
 
 # # API
@@ -27,35 +30,44 @@ def execute():
 # print(requisicao.json())
 
 
-
-
 # Entrada do Json
-with open("listaId.json", encoding = "UTF-8") as jsn:
+with open("listaId.json", encoding="UTF-8") as jsn:
     ids = json.load(jsn)
 
 # Execução
 openExchange()
 sleep(1)
-
 executados = 0
 total = 0
 
-for i in ids:
-    total += 1
+while True:
+    for i in ids:
+        total += 1
 
-    # Filtro para não executar os do Daycoval, ProjudiRJ e TJRJ
-    if i["Cliente"] != "DAYCOVAL" and i["Cliente"] != "PROJUDIRJ" and i["Cliente"] != "TJRJ":
-        print(total, i['Cliente'], end = ' ')
-        id = i['Id']
-        execute()
-        print('executado.')
-        executados += 1
-        sleep(10)
-    else:
-        print(total, i['Cliente'])
-        sleep(0.5)
+        # Filtro para não executar os do Daycoval, ProjudiRJ e TJRJ
+        if i["Cliente"] != "DAYCOVAL" and i["Cliente"] != "PROJUDIRJ" and i["Cliente"] != "TJRJ":
+            cliente = i['Cliente']
+            # print(total, i['Cliente'], end = ' ')
+            data = datetime.datetime.now().strftime("%c")
+            print(f'    <   <   <   {data} - {total:2}. {cliente}', end=' ')
+            id = i['Id']
+            execute()
+            print('executado    >   >   >')
+            executados += 1
+            sleep(5)
+        else:
+            # print(total, i['Cliente'])
+            print(
+                f'    X   X   X   {data} - {total:2} {cliente}    X   X   X')
+            sleep(0.5)
 
-print('='*20)
-print('Fim da Execução!')
-print(f'Total de Reqs: {total}\n{executados} Ids foram executados.')
-print('='*20)
+    print('='*25)
+    print('Fim da Execução!')
+    print(f'Total de Reqs: {total}\n{executados} Ids foram executados.')
+    print('='*25)
+
+    exit = str(input('Deseja sair? [y/n]\n')).upper().strip()
+    if exit == 'Y':
+        break
+    elif exit == 'N':
+        exit = ''
